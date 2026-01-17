@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Join the Mentorship Program</title>
+    <style>
+        :root{
+            --bg: #ffffff;
+            --text: #000000;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        .center{
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        h1{
+            margin:0;
+            font-weight:600;
+            font-size:clamp(1.5rem, 6vw, 2.5rem);
+            letter-spacing:0.02em;
+            line-height:1;
+        }
+    </style>
+</head>
+<body>
+    <main class="center" role="main">
+        <div id="sketch"></div>
+        <div>
+            <span>Open to enrolled UP Diliman students.</span>
+            <span>Priority slots will be given to CFA students.</span>
+            <span>Applications open until 10 February 2026.</span>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+        <script>
+        const txt = 'join the fablab mentorship program';
+
+        function setup(){
+            const cnv = createCanvas(getCanvasWidth(), getCanvasHeight(), WEBGL);
+            cnv.parent('sketch');
+
+            textScreen = createGraphics(getCanvasWidth(), getCanvasHeight())
+            textScreen.noFill()
+            textScreen.stroke(256)
+            textScreen.textSize(40)
+            textScreen.text("🌈",0,80)
+            textScreen.text(txt,50,120)
+        }
+
+        function draw(){
+            background("black");
+            orbitControl(0.5)
+            image(textScreen, -getCanvasWidth()/2, -getCanvasHeight()/2)
+        }
+        function windowResized(){
+            resizeCanvas(getCanvasWidth(), getCanvasHeight());
+        }
+
+        function getCanvasWidth(){
+            return Math.min(window.innerWidth - 80, 1000);
+        }
+
+        function getCanvasHeight(){
+            return Math.min(window.innerHeight * 0.45, 360);
+        }
+        </script>
+    </main> 
+</body>
+</html>
