@@ -1,2 +1,2 @@
 # apply
-site for info about the program application process
+site for info about the program application process.
