@@ -1,84 +1,296 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Join the Mentorship Program</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP CFA FabLab Mentorship Program</title>
     <style>
-        :root{
-            --bg: #ffffff;
-            --text: #000000;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        *{box-sizing:border-box}
-        html,body{height:100%}
-        body{
-            margin:0;
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
+
+        :root {
+            --bg-color: #000;
+            --text-color: #fff;
+            --box-bg: #1a1a1a;
+            --text-secondary: #ccc;
+            --border-color: #fff;
         }
-        .center{
-            min-height: 100vh;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            --bg-color: #fff;
+            --text-color: #000;
+            --box-bg: #f5f5f5;
+            --text-secondary: #333;
+            --border-color: #000;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .nav-buttons button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--text-color);
+        }
+
+        .nav-buttons button:hover {
+            opacity: 0.7;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 2rem;
+            font-size: 80px;
         }
-        h1{
-            margin:0;
-            font-weight:600;
-            font-size:clamp(1.5rem, 6vw, 2.5rem);
-            letter-spacing:0.02em;
-            line-height:1;
+
+        .logo svg {
+            stroke: var(--text-color);
+            fill:none;
+            stroke-width:1.2762;
+            stroke-linecap:round;
+            stroke-linejoin:round;
+        }
+
+        .tagline {
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 60px;
+        }
+
+        .ext-project {
+            margin-top: 60px; 
+            display: inline-block; 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            letter-spacing: 1px; 
+            transition: color 0.3s;
+        }
+
+        .ext-project a:hover {
+            color: rgba(255, 164, 36, 0.818);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay-box {
+            background-color: #1a1a1a;
+            border: 2px solid #fff;
+            padding: 40px;
+            max-width: 500px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .overlay-box h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .overlay-box p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 28px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .close-btn:hover {
+            opacity: 0.6;
+        }
+
+        .logo, .overlay-box, .nav-buttons button {
+            border-color: var(--border-color);
+        }
+
+        .overlay-box {
+            background-color: var(--box-bg);
+            border-color: var(--border-color);
+        }
+
+        .overlay-box p {
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 0px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: opacity 0.3s;
+            z-index: 999;
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
-    <main class="center" role="main">
-        <div id="sketch"></div>
-        <div>
-            <span>Open to enrolled UP Diliman students.</span>
-            <span>Priority slots will be given to CFA students.</span>
-            <span>Applications open until 10 February 2026.</span>
+    <div class="container">
+        <div class="nav-buttons">
+            <button onclick="openOverlay('what')">what</button>
+            <button onclick="openOverlay('who')">who</button>
+            <button onclick="openOverlay('how')">how</button>
         </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
-        <script>
-        const txt = 'join the fablab mentorship program';
 
-        function setup(){
-            const cnv = createCanvas(getCanvasWidth(), getCanvasHeight(), WEBGL);
-            cnv.parent('sketch');
+        <div class="logo">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 378.5 378.4" style="enable-background:new 0 0 378.5 378.4;" xml:space="preserve">
+            <path class="st0" d="M39.7,192.9c1,27.5-2,56.8,1,83.5c14.2,8.2,28.5,16.4,42.7,24.6c0.9,0.8,1.6,0.5,1.3-0.8
+                c-0.6-11.1,1.3-22.9-0.7-33.6C70.5,249.6,61.6,228,63.2,206c1-32,32.1-45.9,58.3-29.1c37.5,21.1,66.3,89.1,22.6,116.6
+                c0,13.7,0,27.4,0,41.1c0,1.1,0.3,1.7,1.3,2.3c11.5,6.6,23,13.4,34.6,19.9c2.5,1.4,3.4,2.9,3.3,5.7c-1,3,1.8,15.6-1.7,15.2
+                c-15.4-0.5-30.7-3.1-45.5-7.4c-37-10.8-70.3-33.2-94.3-63.3C-4.4,250.6-12.5,167.4,21.5,103c1.3-2.6,1.3-2.6,3.8-1.2
+                c4.3,2.5,8.6,5,13,7.4C42.2,135.7,38.3,165.4,39.7,192.9"/>
+            <path class="st0" d="M338.8,110.2c3-1.4,16.2-11.1,17.3-8.7c7.1,13.7,12.8,28.3,16.4,43.4c15.6,62.5-3.6,132-49.5,177.3
+                c-33.1,33.6-79.1,53.9-126.2,55.5c-3.1,0.2-0.3-15.2-1.3-18.1c0-1,0.4-1.4,1.1-1.7c8.1-4.7,16.2-9.4,24.3-14
+                c39.1-22.5,78.1-45.2,117.3-67.6c1.1,0,0.8-0.8,0.8-1.4c-0.3-18.5,0.6-37.9-0.3-55.9c-8,4.6-16,9.1-23.9,13.7
+                c-6.2,13.7-11.8,27.9-22.9,39c-32.4,37.1-83.8,27.2-76.7-27.9c3.6-38,49.5-95.4,89.6-66.4c1.3,0.6,2.2,3.5,3.8,2.4
+                c5.7-3.2,11.4-6.5,17-9.7c3-2.5,13.3-5.6,13.4-8.9C338.8,144.2,339.4,127.1,338.8,110.2"/>
+            <path class="st0" d="M139.7,45.4c7.7,3.9,14.6,9.3,22.5,12.2c20.2-4.8,41.9-3.4,60.9,5.3c57.1,27.9,20.9,79.3-29.7,81.4
+                c-33.9,3.6-82-14.3-75.2-54.7c-8.7-5-17.5-10.1-26.2-15.2c-0.9-0.6-1.6-0.5-2.5,0C74.6,81.9,60.2,93.6,45,99
+                c-2.7-2.5-16.3-7.5-15.2-10.3c5.1-8,10.8-15.7,17-22.9C95.5,8.3,179.6-14.4,250.6,11c40.3,13.8,75.3,41.7,98,77.7
+                c2.3,2.6-13.2,8.1-15.1,10.3c-0.8,0.5-1.5,0.5-2.3,0c-12.8-7.4-25.5-14.8-38.3-22.2c-34.1-19.6-68.2-39.3-102.2-59
+                c-1-0.6-1.9-0.7-3,0C171.7,27,155.8,36.3,139.7,45.4"/>
+            </svg>
+        </div>
 
-            textScreen = createGraphics(getCanvasWidth(), getCanvasHeight())
-            textScreen.noFill()
-            textScreen.stroke(256)
-            textScreen.textSize(40)
-            textScreen.text("🌈",0,80)
-            textScreen.text(txt,50,120)
+        <div class="tagline">join the fablab mentorship program!</div>
+        <div class="ext-project">
+            <a href="https://fablabbers.github.io/making-a-clay-printer" target="_blank" >check out our recent project →</a>
+        </div>
+        </div>
+
+    <!-- Overlay for WHAT -->
+    <div id="what-overlay" class="overlay" onclick="closeOverlay(event)">
+        <div class="overlay-box" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">&times;</button>
+            <h2>What is the FabLab Mentorship Program?</h2>
+<p>A 6-month F2F program at the UP College of Fine Arts FabLab. Mentees/interns are trained on fabrication tools and techniques, work on various projects, and get to know the ins and outs of fablab operations.
+</p>
+        </div>
+    </div>
+
+    <!-- Overlay for WHO -->
+    <div id="who-overlay" class="overlay" onclick="closeOverlay(event)">
+        <div class="overlay-box" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">&times;</button>
+            <h2>Who may apply?</h2>
+            <p>Our program is open to enrolled UP Diliman undergraduate students. Priority will be given to CFA students.</p>
+        </div>
+    </div>
+
+    <!-- Overlay for HOW -->
+    <div id="how-overlay" class="overlay" onclick="closeOverlay(event)">
+        <div class="overlay-box" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">&times;</button>
+            <h2>How to apply?</h2>
+            <p>Write a letter of intent (.pdf file) addressed to the UP CFA FabLab. Please introduce yourself properly, tell us about your current academic status (course, year level etc), outline key reasons how the mentoring program will impact your field of study. Outline your interests, skills, and hobbies. Send the  email with the subject: “Fablab Mentorship Letter of Intent_NAME” to cfafablab.upd@up.edu.ph</p>
+            <p><b>Deadline: February 10, 2026</b></p>
+        </div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+    <script>
+        const theme = localStorage.getItem('theme') || 'dark';
+        if (theme === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('.theme-toggle').textContent = '☀️';
         }
 
-        function draw(){
-            background("black");
-            orbitControl(0.5)
-            image(textScreen, -getCanvasWidth()/2, -getCanvasHeight()/2)
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const newTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '☀️' : '🌙';
         }
-        function windowResized(){
-            resizeCanvas(getCanvasWidth(), getCanvasHeight());
+    </script>
+
+    <script>
+        function openOverlay(type) {
+            const overlay = document.getElementById(type + '-overlay');
+            overlay.classList.add('active');
         }
 
-        function getCanvasWidth(){
-            return Math.min(window.innerWidth - 80, 1000);
+        function closeOverlay(event) {
+            if (event) {
+                event.target.classList.remove('active');
+            } else {
+                document.querySelectorAll('.overlay').forEach(o => o.classList.remove('active'));
+            }
         }
 
-        function getCanvasHeight(){
-            return Math.min(window.innerHeight * 0.45, 360);
-        }
-        </script>
-    </main> 
+        // Close overlay when pressing Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.overlay').forEach(o => o.classList.remove('active'));
+            }
+        });
+    </script>
 </body>
 </html>
